@@ -4,7 +4,7 @@ class Hydrahub::Base < ApplicationService
   attr_reader :config, :public_key, :headers
 
   
-  INTEGRATIONS = ['MaxpayV2', 'Mojee', 'Hydrahub', 'Comercialltt', 'Moscouv', 'Cacapava', 'Jacaei'].freeze
+  INTEGRATIONS = ['MaxpayV2', 'Mojee', 'Hydrahub', 'Comercialltt', 'Moscouv', 'Cacapava', 'Jacaei', 'Supercash', 'Perplexid'].freeze
 
   def initialize(config)
     @config = config

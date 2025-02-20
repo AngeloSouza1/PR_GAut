@@ -149,6 +149,13 @@ class Installment < ApplicationRecord
   moscouv: 555,
   cacapava: 333,
   jacaei: 888,
+  bisonpay: 800,
+  american: 333,
+  flyer: 333,
+  supercash: 333,
+  sprra: 222,
+  dora: 777,
+  perplexid: 888,
 }, _default: :mercado_pago, _prefix: :gateway
 
   ## SCOPES

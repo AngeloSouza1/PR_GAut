@@ -201,8 +201,7 @@ end
 
 def create_gateway
    # Captura o tempo de início da execução
-  start_time = Time.now
-  bases = load_bases
+   bases = load_bases
   display_header
 
 
@@ -748,13 +747,6 @@ end
   puts "\n\e[33mOBS: Importante! No ambiente admin, habilitar o gateway e no do usuário, inserir as credenciais!\e[0m"
 
 
-  # Calcula o tempo total de execução
-  end_time = Time.now
-  elapsed_time = end_time - start_time
-  
-  # Exibe o tempo total de execução formatado
-  puts "\n\e[32m ⏳ Tempo total de execução: #{elapsed_time.round(2)} segundos\e[0m"
-  
   puts "\n\e[34mPressione qualquer tecla para voltar ao menu.\e[0m".center(80)
   STDIN.getch
 end
@@ -877,8 +869,16 @@ else
 end
 end
 
-# Menu principal melhorado com display_header
-def main_menu
+
+# Captura o tempo inicial antes de entrar no menu principal
+start_time = Time.now
+
+
+# Captura o tempo inicial antes de entrar no menu principal
+start_time = Time.now
+
+# Menu principal com captura de tempo total
+def main_menu(start_time)
   loop do
     display_header # Exibe o cabeçalho com logo e menu
     
@@ -889,23 +889,39 @@ def main_menu
     when '1'
       consulta_base
     when '2'
+      # Captura o tempo final
       create_gateway
+      end_time = Time.now
+      elapsed_time = end_time - start_time
+      
+      # Converte o tempo para minutos e segundos
+      minutes = (elapsed_time / 60).to_i
+      seconds = (elapsed_time % 60).to_i
+
+      # Exibe o tempo formatado corretamente
+      formatted_time = if minutes > 0
+                         "#{minutes} min #{seconds} seg"
+                       else
+                         "#{seconds} seg"
+                       end
+      puts"\n"
+      puts "\n\e[33mTempo total de execução: #{formatted_time}\e[0m"
+      STDIN.gets
     when '3'
       cadastrar_base
     when '4'
-      puts "\n\e[33m 🔚 Saindo do sistema... Até logo! \e[0m"
+       puts "\n\e[31mSaindo do sistema... Até logo!\e[0m".center(80)
       sleep(1)
       clear_screen
       break
     else
-      puts "\n\e[31m[Erro] Opção inválida! Tente novamente.\e[0m"
+      puts "\n\e[31m[Erro] Opção inválida! Tente novamente.\e[0m".center(80)
       sleep(1)
     end
   end
 end
 
-
-# Inicia o menu principal
-main_menu
+# Inicia o menu principal com o tempo inicial
+main_menu(start_time)
 end
 end

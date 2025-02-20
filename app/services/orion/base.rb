@@ -3,7 +3,7 @@ module Orion
 
   class Base < ApplicationService
 
-    INTEGRATIONS = ['Dubaipay', 'Pagdrop', 'Monezopay', 'Motorola', 'Teste', 'Sfsdfs', 'Gafe'].freeze
+    INTEGRATIONS = ['Dubaipay', 'Pagdrop', 'Monezopay', 'Motorola', 'Teste', 'Sfsdfs', 'Gafe', 'Flyer', 'Sprra'].freeze
 
     private attr_reader :token, :config
 

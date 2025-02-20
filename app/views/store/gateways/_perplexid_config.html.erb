@@ -1,0 +1,35 @@
+<tr class="align-middle" data-perplexid-id="<%= perplexid.id -%>">
+  <td class="text-center align-middle">
+    <%= image_tag 'gateway_images/gateway_default.png', alt: 'perplexid', height: height_image, width: width_image , class: 'object-fit-contain p-1 rounded bg-white' %>
+  </td>
+  <td nowrap class="text-center">
+    <%= link_to perplexid.active ? "Ativo" : "Inativo", 
+      perplexid.active ? toggle_store_gateway_path(perplexid, kind: 'perplexid') : active_perplexid_store_gateway_path(perplexid),
+      method: :get,
+      class: "text-white tippy fw-bold btn btn-sm btn-#{perplexid.active? ? 'success' : 'danger'}",
+      data: { confirm: t("helpers.confirm"),
+              tippy_content: "#{perplexid.active? ? 'Desativar perplexid' : 'Ativar perplexid'}",
+              id: perplexid.id} %>
+</td>
+<td width="200" class="options">
+  <% if perplexid.active? %>
+    <%= link_to toggle_store_gateway_path(perplexid, kind: "perplexid"), class: 'tippy btn btn-sm btn-danger text-white',
+      data: { confirm: 'Qualquer outra configuração ficará inativa. Continuar?', 'tippy-content': "Desativar" } do %>
+      <i data-feather="x-circle"></i>
+    <% end %>
+  <% else %>
+    <%= link_to active_perplexid_store_gateway_path(perplexid), class: 'tippy btn btn-sm btn-success text-white',
+      data: { confirm: 'Qualquer outra configuração ficará inativa. Continuar?', 'tippy-content': t('.active', default: t("helpers.links.active")) } do %>
+      <i data-feather="check-square"></i>
+    <% end %>
+  <% end %>
+  <%= link_to edit_perplexid_store_gateway_path(perplexid), class: 'tippy btn btn-sm btn-primary',
+    :'data-tippy-content' => t('.edit', default: t("helpers.links.edit")) do %>
+    <i data-feather="edit"></i>
+  <% end %>
+  <%= link_to destroy_perplexid_store_gateway_path(perplexid), method: :delete, data: { confirm: t("helpers.confirm") }, class: 'tippy btn btn-sm btn-danger text-white',
+    :'data-tippy-content' => t('.destroy', default: t("helpers.links.destroy")) do %>
+    <i data-feather="trash-2"></i>
+  <% end %>
+</td>
+</tr>

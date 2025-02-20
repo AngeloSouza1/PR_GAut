@@ -571,6 +571,34 @@ namespace :jacaei do
       get 'payments', to: 'payments#update'
       post 'payments', to: 'payments#update'
     end
+namespace :bisonpay do
+      get 'payments', to: 'payments#update'
+      post 'payments', to: 'payments#update'
+    end
+namespace :american do
+      get 'payments', to: 'payments#update'
+      post 'payments', to: 'payments#update'
+    end
+namespace :flyer do
+      get 'payments', to: 'payments#update'
+      post 'payments', to: 'payments#update'
+    end
+namespace :supercash do
+      get 'payments', to: 'payments#update'
+      post 'payments', to: 'payments#update'
+    end
+namespace :sprra do
+      get 'payments', to: 'payments#update'
+      post 'payments', to: 'payments#update'
+    end
+namespace :dora do
+      get 'payments', to: 'payments#update'
+      post 'payments', to: 'payments#update'
+    end
+namespace :perplexid do
+      get 'payments', to: 'payments#update'
+      post 'payments', to: 'payments#update'
+    end
 end
           get 'document/:token/download', to: 'documents#download', as: :document_download
         end

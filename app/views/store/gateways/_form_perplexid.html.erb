@@ -1,0 +1,31 @@
+<div id="form_perplexid">
+  <div class="perplexid">
+    <%= render_image_gateway 'gateways_images/gateway_default.png', 'object-fit-cover'%>
+  </div>
+  <%= bootstrap_form_for @perplexid_config, url: @perplexid_config.persisted? ? update_perplexid_store_gateway_path(@perplexid_config) : create_perplexid_store_gateways_path do |f| %>
+    <div class="block block-rounded block-themed shadow-sm">
+      <div class="block-header bg-white border-bottom">7
+        <h3 class="block-title font-weight-bold text-dark">
+          Dados perplexid
+        </h3>
+      </div>
+      <div class="block-content">
+        <div class="">
+          <%= f.text_field :secret_key, placeholder: "sk_", class: "" %>
+        </div>
+
+        <div class="">
+          <%= f.text_field :public_key, placeholder: "pk_", class: "" %>
+        </div>
+
+        <div class="col-6" data-controller="inputmask">
+          <%= f.text_field :rate, class: 'inputmask', required: true, value: number_with_precision(f.object.rate, precision: 2), append: '%', data: {action: "change->inputmask#maskMoney", mask: 'money'} %>
+        </div>
+      </div>
+    </div>
+    <div class="text-end">
+      <%= f.submit "Salvar configuração", class: 'btn btn-primary', data: {disable_with: 'Salvando...'} %>
+      <%= link_to t('.cancel', default: t("helpers.links.cancel")), session[:redirection_after_register].present? ? store_redirection_after_register_path : store_gateways_path, class: 'btn btn-outline-primary' %>
+    </div>
+  <% end %>
+</div>

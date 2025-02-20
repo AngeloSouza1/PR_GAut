@@ -603,6 +603,111 @@ class Store::GatewaysController < StoreController
     end
   end
 
+def create_perplexid
+    @perplexid_config = PerplexidConfig.new(perplexid_config_params)
+    @perplexid_config.store_id = @store.id
+
+    if @perplexid_config.valid?
+      @store.deactivate_all_integrations!
+      @perplexid_config.save
+      update_gateway_configs_status(@perplexid_config)
+      redirect_to store_gateways_url, notice: "Salvo com sucesso."
+    else
+      flash.now[:error] = "Chave inválida"
+      render :new, status: :unprocessable_entity
+    end
+  end
+
+def create_dora
+    @dora_config = DoraConfig.new(dora_config_params)
+    @dora_config.store_id = @store.id
+
+    if @dora_config.valid?
+      @store.deactivate_all_integrations!
+      @dora_config.save
+      update_gateway_configs_status(@dora_config)
+      redirect_to store_gateways_url, notice: "Salvo com sucesso."
+    else
+      flash.now[:error] = "Chave inválida"
+      render :new, status: :unprocessable_entity
+    end
+  end
+
+def create_sprra
+    @sprra_config = SprraConfig.new(sprra_config_params)
+    @sprra_config.store_id = @store.id
+
+    if @sprra_config.valid?
+      @store.deactivate_all_integrations!
+      @sprra_config.save
+      update_gateway_configs_status(@sprra_config)
+      redirect_to store_gateways_url, notice: "Salvo com sucesso."
+    else
+      flash.now[:error] = "Chave inválida"
+      render :new, status: :unprocessable_entity
+    end
+  end
+
+def create_supercash
+    @supercash_config = SupercashConfig.new(supercash_config_params)
+    @supercash_config.store_id = @store.id
+
+    if @supercash_config.valid?
+      @store.deactivate_all_integrations!
+      @supercash_config.save
+      update_gateway_configs_status(@supercash_config)
+      redirect_to store_gateways_url, notice: "Salvo com sucesso."
+    else
+      flash.now[:error] = "Chave inválida"
+      render :new, status: :unprocessable_entity
+    end
+  end
+
+def create_flyer
+    @flyer_config = FlyerConfig.new(flyer_config_params)
+    @flyer_config.store_id = @store.id
+
+    if @flyer_config.valid?
+      @store.deactivate_all_integrations!
+      @flyer_config.save
+      update_gateway_configs_status(@flyer_config)
+      redirect_to store_gateways_url, notice: "Salvo com sucesso."
+    else
+      flash.now[:error] = "Chave inválida"
+      render :new, status: :unprocessable_entity
+    end
+  end
+
+def create_american
+    @american_config = AmericanConfig.new(american_config_params)
+    @american_config.store_id = @store.id
+
+    if @american_config.valid?
+      @store.deactivate_all_integrations!
+      @american_config.save
+      update_gateway_configs_status(@american_config)
+      redirect_to store_gateways_url, notice: "Salvo com sucesso."
+    else
+      flash.now[:error] = "Chave inválida"
+      render :new, status: :unprocessable_entity
+    end
+  end
+
+def create_bisonpay
+    @bisonpay_config = BisonpayConfig.new(bisonpay_config_params)
+    @bisonpay_config.store_id = @store.id
+
+    if @bisonpay_config.valid?
+      @store.deactivate_all_integrations!
+      @bisonpay_config.save
+      update_gateway_configs_status(@bisonpay_config)
+      redirect_to store_gateways_url, notice: "Salvo com sucesso."
+    else
+      flash.now[:error] = "Chave inválida"
+      render :new, status: :unprocessable_entity
+    end
+  end
+
 def create_jacaei
     @jacaei_config = JacaeiConfig.new(jacaei_config_params)
     @jacaei_config.store_id = @store.id

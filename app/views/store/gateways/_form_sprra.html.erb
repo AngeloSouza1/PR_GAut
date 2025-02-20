@@ -1,0 +1,27 @@
+<div id="form_sprra">
+  <div class="sprra">
+    <%= render_image_gateway 'gateways_images/gateway_default.png', 'p-1'%>
+  </div>
+  <%= bootstrap_form_for @sprra_config, url: @sprra_config.persisted? ? update_sprra_store_gateway_path(@sprra_config) : create_sprra_store_gateways_path do |f| %>
+    <%#= show_errors_for(f.object) %>
+    <div class="block block-rounded block-themed shadow-sm">
+      <div class="block-header bg-white border-bottom">7
+        <h3 class="block-title font-weight-bold text-dark">
+          Dados sprra
+        </h3>
+      </div>
+      <div class="block-content">
+        <div class="">
+          <%= f.text_field :secret_key, placeholder: "sk_", class: "" %>
+        </div>
+        <div class="">
+          <%= f.text_field :public_key, placeholder: "pk_", class: "", required: true %>
+        </div>
+      </div>
+    </div>
+    <div class="text-end">
+      <%= f.submit "Salvar configuração", class: 'btn btn-primary', data: {disable_with: 'Salvando...'} %>
+      <%= link_to t('.cancel', default: t("helpers.links.cancel")), session[:redirection_after_register].present? ? store_redirection_after_register_path : store_gateways_path, class: 'btn btn-outline-primary' %>
+    </div>
+  <% end %>
+</div>

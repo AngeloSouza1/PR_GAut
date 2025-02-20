@@ -3,7 +3,7 @@ module Shield
 
   class Base < ApplicationService
 
-    INTEGRATIONS = ['Dubaipay', 'Pagdrop', 'Monezopay', 'Motorla', 'Motorolapay', 'Motorola', 'Yopa'].freeze
+    INTEGRATIONS = ['Dubaipay', 'Pagdrop', 'Monezopay', 'Motorla', 'Motorolapay', 'Motorola', 'Yopa', 'Bisonpay', 'American', 'Dora'].freeze
 
     private attr_reader :token, :config
 

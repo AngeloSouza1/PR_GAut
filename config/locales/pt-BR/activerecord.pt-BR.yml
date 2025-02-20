@@ -930,6 +930,20 @@ pt-BR:
 
       abmexpay_config:
         api_key: Chave da API
+perplexid_config:
+  api_key: Chave da API
+dora_config:
+  api_key: Chave da API
+sprra_config:
+  api_key: Chave da API
+supercash_config:
+  api_key: Chave da API
+flyer_config:
+  api_key: Chave da API
+american_config:
+  api_key: Chave da API
+bisonpay_config:
+  api_key: Chave da API
 jacaei_config:
   api_key: Chave da API
 cacapava_config:

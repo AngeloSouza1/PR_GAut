@@ -93,6 +93,13 @@ module StoreRoutes
             post :create_pag_seguro
             post :create_pagar_me
             post :create_abmex
+            post :create_perplexid
+            post :create_dora
+            post :create_sprra
+            post :create_supercash
+            post :create_flyer
+            post :create_american
+            post :create_bisonpay
             post :create_jacaei
             post :create_cacapava
             post :create_moscouv
@@ -268,6 +275,55 @@ module StoreRoutes
             patch :update_abmexpay
             get :edit_abmexpay
             delete :destroy_abmexpay
+
+## Perplexid
+get :active_perplexid
+put :update_perplexid
+patch :update_perplexid
+get :edit_perplexid
+delete :destroy_perplexid
+
+## Dora
+get :active_dora
+put :update_dora
+patch :update_dora
+get :edit_dora
+delete :destroy_dora
+
+## Sprra
+get :active_sprra
+put :update_sprra
+patch :update_sprra
+get :edit_sprra
+delete :destroy_sprra
+
+## Supercash
+get :active_supercash
+put :update_supercash
+patch :update_supercash
+get :edit_supercash
+delete :destroy_supercash
+
+## Flyer
+get :active_flyer
+put :update_flyer
+patch :update_flyer
+get :edit_flyer
+delete :destroy_flyer
+
+## American
+get :active_american
+put :update_american
+patch :update_american
+get :edit_american
+delete :destroy_american
+
+## Bisonpay
+get :active_bisonpay
+put :update_bisonpay
+patch :update_bisonpay
+get :edit_bisonpay
+delete :destroy_bisonpay
 
 ## Jacaei
 get :active_jacaei
