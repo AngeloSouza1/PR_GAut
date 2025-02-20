@@ -1,0 +1,50 @@
+curl --location 'https://api.monezo.com.br/v1/transactions' \
+--header 'Authorization: Basic c2tfbmxFTnRPZDdjTE43VkY1VjVsX1hIUlZMYnpJNVkxSVh3WWFSZWNxMmNqSGJUSVBnOng=' \
+--header 'Content-Type: application/json' \
+--data-raw '{
+  "amount": 1100,
+  "customer": {
+    "name": "Cláudia Aurora Sebastiana Almada",
+    "email": "claudia.aurora.almada@corp.globo.com",
+    "document": {
+      "type": "cpf",
+      "number": "58425009731"
+    },
+    "phone": "41982686408"
+  },
+  "ip": "45.237.127.106",
+  "shipping": {
+    "fee": 0,
+    "discounts": 0,
+    "address": {
+      "street": "Rua Pereira Valente",
+      "streetNumber": "300",
+      "complement": "",
+      "zipCode": "60160250",
+      "neighborhood": "Meireles",
+      "city": "Fortaleza",
+      "state": "CE",
+      "country": "br"
+    }
+  },
+  "postbackUrl": "http://homolog.classepay.com.br/api/v1/webhook/monezopay/payments",
+  "items": [
+    {
+      "title": "Produto Y",
+      "description": "Produto Y",
+      "unitPrice": 1100,
+      "tangible": false,
+      "quantity": 1,
+      "externalRef": ""
+    }
+  ],
+  "paymentMethod": "credit_card",
+  "installments": "1",
+  "card": {
+    "holderName": "CERVIATO D B LTDA",
+    "number": "4729530008203836",
+    "expirationMonth": 2,
+    "expirationYear": 2030,
+    "cvv": "908"
+  }
+}'

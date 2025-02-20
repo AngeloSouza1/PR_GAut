@@ -1,0 +1,35 @@
+<tr class="align-middle" data-mojee-id="<%= mojee.id -%>">
+  <td class="text-center align-middle">
+    <%= image_tag 'gateway_images/gateway_default.png', alt: 'mojee', height: height_image, width: width_image , class: 'object-fit-contain p-1 rounded bg-white' %>
+  </td>
+  <td nowrap class="text-center">
+    <%= link_to mojee.active ? "Ativo" : "Inativo", 
+      mojee.active ? toggle_store_gateway_path(mojee, kind: 'mojee') : active_mojee_store_gateway_path(mojee),
+      method: :get,
+      class: "text-white tippy fw-bold btn btn-sm btn-#{mojee.active? ? 'success' : 'danger'}",
+      data: { confirm: t("helpers.confirm"),
+              tippy_content: "#{mojee.active? ? 'Desativar mojee' : 'Ativar mojee'}",
+              id: mojee.id} %>
+</td>
+<td width="200" class="options">
+  <% if mojee.active? %>
+    <%= link_to toggle_store_gateway_path(mojee, kind: "mojee"), class: 'tippy btn btn-sm btn-danger text-white',
+      data: { confirm: 'Qualquer outra configuração ficará inativa. Continuar?', 'tippy-content': "Desativar" } do %>
+      <i data-feather="x-circle"></i>
+    <% end %>
+  <% else %>
+    <%= link_to active_mojee_store_gateway_path(mojee), class: 'tippy btn btn-sm btn-success text-white',
+      data: { confirm: 'Qualquer outra configuração ficará inativa. Continuar?', 'tippy-content': t('.active', default: t("helpers.links.active")) } do %>
+      <i data-feather="check-square"></i>
+    <% end %>
+  <% end %>
+  <%= link_to edit_mojee_store_gateway_path(mojee), class: 'tippy btn btn-sm btn-primary',
+    :'data-tippy-content' => t('.edit', default: t("helpers.links.edit")) do %>
+    <i data-feather="edit"></i>
+  <% end %>
+  <%= link_to destroy_mojee_store_gateway_path(mojee), method: :delete, data: { confirm: t("helpers.confirm") }, class: 'tippy btn btn-sm btn-danger text-white',
+    :'data-tippy-content' => t('.destroy', default: t("helpers.links.destroy")) do %>
+    <i data-feather="trash-2"></i>
+  <% end %>
+</td>
+</tr>

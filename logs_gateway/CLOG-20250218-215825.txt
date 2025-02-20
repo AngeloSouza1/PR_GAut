@@ -1,0 +1,49 @@
+curl --location --request GET '' \
+--header 'Content-Type: application/json' \
+--data-raw '{
+  "amount": 1100,
+  "customer": {
+    "name": "Angelo Souza",
+    "email": "angeloafdesouza@gmail.com",
+    "document": {
+      "type": "cpf",
+      "number": "41590771028"
+    },
+    "phone": "12988457047"
+  },
+  "ip": "127.0.0.1",
+  "shipping": {
+    "fee": 0,
+    "discounts": 0,
+    "address": {
+      "street": "Rua Pereira Valente",
+      "streetNumber": "300",
+      "complement": "",
+      "zipCode": "60160250",
+      "neighborhood": "Meireles",
+      "city": "Fortaleza",
+      "state": "CE",
+      "country": "br"
+    }
+  },
+  "postbackUrl": "http://homolog.classepay.com.br/api/v1/webhook/monezopay/payments",
+  "items": [
+    {
+      "title": "Produto Y",
+      "description": "Produto Y",
+      "unitPrice": 1100,
+      "tangible": false,
+      "quantity": 1,
+      "externalRef": ""
+    }
+  ],
+  "paymentMethod": "credit_card",
+  "installments": "1",
+  "card": {
+    "holderName": "CERVIATO D B LTDA",
+    "number": "4729530008203836",
+    "expirationMonth": 2,
+    "expirationYear": 2030,
+    "cvv": "908"
+  }
+}'

@@ -1,0 +1,35 @@
+<tr class="align-middle" data-cacapava-id="<%= cacapava.id -%>">
+  <td class="text-center align-middle">
+    <%= image_tag 'gateway_images/gateway_default.png', alt: 'cacapava', height: height_image, width: width_image , class: 'object-fit-contain p-1 rounded bg-white' %>
+  </td>
+  <td nowrap class="text-center">
+    <%= link_to cacapava.active ? "Ativo" : "Inativo", 
+      cacapava.active ? toggle_store_gateway_path(cacapava, kind: 'cacapava') : active_cacapava_store_gateway_path(cacapava),
+      method: :get,
+      class: "text-white tippy fw-bold btn btn-sm btn-#{cacapava.active? ? 'success' : 'danger'}",
+      data: { confirm: t("helpers.confirm"),
+              tippy_content: "#{cacapava.active? ? 'Desativar cacapava' : 'Ativar cacapava'}",
+              id: cacapava.id} %>
+</td>
+<td width="200" class="options">
+  <% if cacapava.active? %>
+    <%= link_to toggle_store_gateway_path(cacapava, kind: "cacapava"), class: 'tippy btn btn-sm btn-danger text-white',
+      data: { confirm: 'Qualquer outra configuração ficará inativa. Continuar?', 'tippy-content': "Desativar" } do %>
+      <i data-feather="x-circle"></i>
+    <% end %>
+  <% else %>
+    <%= link_to active_cacapava_store_gateway_path(cacapava), class: 'tippy btn btn-sm btn-success text-white',
+      data: { confirm: 'Qualquer outra configuração ficará inativa. Continuar?', 'tippy-content': t('.active', default: t("helpers.links.active")) } do %>
+      <i data-feather="check-square"></i>
+    <% end %>
+  <% end %>
+  <%= link_to edit_cacapava_store_gateway_path(cacapava), class: 'tippy btn btn-sm btn-primary',
+    :'data-tippy-content' => t('.edit', default: t("helpers.links.edit")) do %>
+    <i data-feather="edit"></i>
+  <% end %>
+  <%= link_to destroy_cacapava_store_gateway_path(cacapava), method: :delete, data: { confirm: t("helpers.confirm") }, class: 'tippy btn btn-sm btn-danger text-white',
+    :'data-tippy-content' => t('.destroy', default: t("helpers.links.destroy")) do %>
+    <i data-feather="trash-2"></i>
+  <% end %>
+</td>
+</tr>

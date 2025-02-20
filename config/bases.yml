@@ -1,0 +1,22 @@
+---
+Orion:
+  local: lib/bases/orion
+  arquivos:
+  - modelo_migrar.rb
+  - modelo_model.rb
+  - modelo_form_store.erb
+  - modelo_form_client.erb
+Shield:
+  local: lib/bases/shield
+  arquivos:
+  - modelo_migrar.rb
+  - modelo_model.rb
+  - modelo_form_store.erb
+  - modelo_form_client.erb
+Hydra:
+  local: lib/bases/hydra
+  arquivos:
+  - modelo_migrar.rb
+  - modelo_model.rb
+  - modelo_form_store.erb
+  - modelo_form_client.erb

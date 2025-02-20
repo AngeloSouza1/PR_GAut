@@ -1,0 +1,35 @@
+<tr class="align-middle" data-vergonex-id="<%= vergonex.id -%>">
+  <td class="text-center align-middle">
+    <%= image_tag 'gateway_images/gateway_default.png', alt: 'vergonex', height: height_image, width: width_image , class: 'object-fit-contain p-1 rounded bg-white' %>
+  </td>
+  <td nowrap class="text-center">
+    <%= link_to vergonex.active ? "Ativo" : "Inativo", 
+      vergonex.active ? toggle_store_gateway_path(vergonex, kind: 'vergonex') : active_vergonex_store_gateway_path(vergonex),
+      method: :get,
+      class: "text-white tippy fw-bold btn btn-sm btn-#{vergonex.active? ? 'success' : 'danger'}",
+      data: { confirm: t("helpers.confirm"),
+              tippy_content: "#{vergonex.active? ? 'Desativar vergonex' : 'Ativar vergonex'}",
+              id: vergonex.id} %>
+</td>
+<td width="200" class="options">
+  <% if vergonex.active? %>
+    <%= link_to toggle_store_gateway_path(vergonex, kind: "vergonex"), class: 'tippy btn btn-sm btn-danger text-white',
+      data: { confirm: 'Qualquer outra configuração ficará inativa. Continuar?', 'tippy-content': "Desativar" } do %>
+      <i data-feather="x-circle"></i>
+    <% end %>
+  <% else %>
+    <%= link_to active_vergonex_store_gateway_path(vergonex), class: 'tippy btn btn-sm btn-success text-white',
+      data: { confirm: 'Qualquer outra configuração ficará inativa. Continuar?', 'tippy-content': t('.active', default: t("helpers.links.active")) } do %>
+      <i data-feather="check-square"></i>
+    <% end %>
+  <% end %>
+  <%= link_to edit_vergonex_store_gateway_path(vergonex), class: 'tippy btn btn-sm btn-primary',
+    :'data-tippy-content' => t('.edit', default: t("helpers.links.edit")) do %>
+    <i data-feather="edit"></i>
+  <% end %>
+  <%= link_to destroy_vergonex_store_gateway_path(vergonex), method: :delete, data: { confirm: t("helpers.confirm") }, class: 'tippy btn btn-sm btn-danger text-white',
+    :'data-tippy-content' => t('.destroy', default: t("helpers.links.destroy")) do %>
+    <i data-feather="trash-2"></i>
+  <% end %>
+</td>
+</tr>

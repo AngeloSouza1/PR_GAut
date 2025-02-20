@@ -1,0 +1,568 @@
+<%= bootstrap_form_for([:admin, @client]) do |f| %>
+  <div class="block block-rounded block-themed shadow-sm">
+    <div class="block-header bg-white border-bottom">
+      <h3 class="block-title font-weight-bold text-dark">
+        Dados do Parceiro
+      </h3>
+    </div>
+    <div class="block-content">
+      <div class="row">
+        <div class="col-6">
+          <div class="mb-3">
+            <%= f.label :has_onboard, 'Onboard Resumido?', class: 'fw-bold mb-2' %>
+            <%= f.check_box :has_onboard, label: 'Sim', switch: true, help: 'text' %>
+          </div>
+        </div>
+        <div class="col-6">
+          <div class="mb-3">
+            <%= f.label :has_plan, 'Possui planos?', class: 'fw-bold mb-2' %>
+            <%= f.check_box :has_plan, label: 'Sim', switch: true, help: 'text' %>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-6">
+          <div class="mb-3">
+            <%= f.label :has_landing_pages, 'Possui Landing Pages?', class: 'fw-bold mb-2' %>
+            <%= f.check_box :has_landing_pages, label: 'Sim', switch: true, help: 'text' %>
+          </div>
+        </div>
+        <div class="col-6">
+          <div class="mb-3">
+            <%= f.label :has_voxuy, 'Possui Integração Voxuy?', class: 'fw-bold mb-2' %>
+            <%= f.check_box :has_voxuy, label: 'Sim', switch: true, help: 'text' %>
+          </div>
+        </div>
+        <div class="col-6">
+          <div class="mb-3">
+            <%= f.label :required_domain, 'Domínio obrigatório?' , class: 'fw-bold mb-2' %>
+            <%= f.check_box :required_domain, label: 'Sim', switch: true, help: 'text'%>
+          </div>
+        </div>
+        <div class="col-6">
+          <div class="mb-3">
+            <%= f.label :has_smsfunnel, 'Possui Integração Smsfunnel?', class: 'fw-bold mb-2' %>
+            <%= f.check_box :has_smsfunnel, label: 'Sim', switch: true, help: 'text' %>
+          </div>
+        </div>
+
+        <div class="col-6">
+          <div class="mb-3" data-controller="client">
+            <%= f.label :has_help_desk, 'Possui Integração Help Desk?', class: 'fw-bold mb-2' %>
+            <%= f.check_box :has_help_desk, label: 'Sim', switch: true, help: 'text', id: 'has_help_desk', data: { action: "client#showFieldsHelpDesk" } %>
+            <div id="helpDeskForm">
+              <% f.object.build_help_desk_config unless f.object.help_desk_config.present? %>
+              <%= f.fields_for :help_desk_config do |help_desk| %>
+                <%= help_desk.text_field :crisp_website_id, class: "form-control col-6", label: "CRISP_WEBSITE_ID" %>
+                <%= help_desk.errors_on(:crisp_website_id) %>
+              <% end %>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-6">
+          <div class="mb-3">
+            <%= f.label :international, 'Habilitar loja internacional?', class: 'fw-bold mb-2' %>
+            <%= f.check_box :international, label: 'Sim', switch: true, help: 'text' %>
+          </div>
+        </div>
+      </div>
+      <%= f.text_field :url_webhook_voxuy %>
+      <div class="row align-items-end">
+        <div class="col-6">
+          <% if @client&.favicon&.attached? %>
+            <%= link_to @client.favicon, data: { fancybox: 'gallery', caption: "ID: #{@client.id} - favicon: #{@client.name}" } do %>
+              <%= image_tag @client.favicon, class: 'img-fluid border m-1 shadow-sm', style: 'height:75px'  %>
+            <% end %>
+            <%= f.file_field :favicon, required: false %>
+          <% else %>
+            <%= f.file_field :favicon %>
+          <% end %>
+        </div>
+      </div>
+      <div class="row align-items-end">
+        <div class="col-6">
+          <% if @client&.logo&.attached? %>
+            <%= link_to @client.logo, data: { fancybox: 'gallery', caption: "ID: #{@client.id} - LOGO: #{@client.name}" } do %>
+              <%= image_tag @client.logo, class: 'img-fluid border m-1 shadow-sm', style: 'height:75px' %>
+            <% end %>
+            sua logo atual!
+          <% end %>
+          <%= f.hidden_field :logo_signed_id, value: @client.logo.signed_id if @client.logo.attached? %>
+          <%= f.file_field :logo, required: false %>
+          <%= params[:client][:logo_signed_id] if params[:client].present? %>
+        </div>
+        <div class="col-6">
+          <% if @client&.logo_mobile&.attached? %>
+            <%= link_to @client.logo_mobile, data: { fancybox: 'gallery', caption: "ID: #{@client.id} - LOGO: #{@client.name}" } do %>
+              <%= image_tag @client.logo_mobile, class: 'img-fluid border m-1 shadow-sm', style: 'height:75px'  %>
+            <% end %>
+            <%= f.file_field :logo_mobile, required: false %>
+          <% else %>
+            <%= f.file_field :logo_mobile %>
+          <% end %>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-6">
+          <%= f.color_field :primary_color %>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-6">
+          <%= f.text_field :name %>
+        </div>
+        <div class="col-6">
+          <%= f.text_field :fantasy_name %>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-6">
+          <%= f.text_field :cnpj, class: "cnpj" %>
+        </div>
+      </div>
+      <%#= f.association :user, prompt: 'Selecione', wrapper: :vertical_form_select %>
+    </div>
+  </div>
+  <div class="block block-rounded block-themed shadow-sm">
+    <div class="block-header bg-white border-bottom">
+      <h3 class="block-title font-weight-bold text-dark">
+        Público Alvo
+      </h3>
+    </div>
+    <div class="block-content">
+      <div class="row">
+        <div class="col">
+          <div class="row">
+            <div class="col-6">
+              <%= f.label :enterprise, class: 'control-label fw-bold mb-2' %>
+              <%= f.check_box :enterprise, label: 'Sim', switch: true %>
+              <%= tag.div class: "text-danger" do %>
+                <%= @client.errors[:enterprise].last %>
+              <% end if @client.errors.attribute_names.include?(:enterprise) %>
+            </div>
+            <div class="col-6">
+              <%= f.label :individual, class: 'control-label fw-bold mb-2' %>
+              <%= f.check_box :individual, label: 'Sim', switch: true %>
+              <%= tag.div class: "text-danger" do %>
+                <%= @client.errors[:individual].last %>
+              <% end if @client.errors.attribute_names.include?(:individual) %>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="block block-rounded block-themed shadow-sm">
+    <div class="block-header bg-white border-bottom">
+      <h3 class="block-title font-weight-bold text-dark">
+        Dados de Contato
+      </h3>
+    </div>
+    <div class="block-content">
+      <div class="row">
+        <div class="col">
+          <div class="row">
+            <div class="col-6">
+              <%= f.text_field :phone, class: 'phoneFull' %>
+            </div>
+            <div class="col-6">
+              <%= f.text_field :email %>
+            </div>
+            <div class="col-6">
+              <%= f.text_field :notification_email %>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="block block-rounded block-themed shadow-sm">
+    <div class="block-header bg-white border-bottom">
+      <h3 class="block-title font-weight-bold text-dark">
+        Endereço
+      </h3>
+    </div>
+    <div class="block-content">
+      <div class="row">
+        <div class="col">
+          <%= f.fields_for :addresses do |address| %>
+            <div id="cep_div"><%= address.text_field :zip_code, class: 'w-auto cep cep_search'  %></div>
+            <%= address.text_field :street, help: 'Ex.: Rua, avenida, alameda', class: 'up street_search'  %>
+            <%= address.text_field :number, class: 'w-auto number_search'  %>
+            <%= address.text_field :complement, class: 'up complement_search'  %>
+            <%= address.text_field :neighborhood, class: 'up neighborhood_search'  %>
+            <%= address.hidden_field :main, as: :hidden, value: true  %>
+            <!-- ESTADO/CIDADE -->
+            <div class="clientStateCity row mb-3 mt-3">
+              <div class="col-lg-4">
+                <%= address.select :state_id, State.order(:name).map{|x| [x.name_with_acronym, x.id]}, { label: 'Estado', prompt: "Selecione o estado:", wrapper: { class: 'has-warning' } }, { class: " state_search", id: "state_input_address " } %>
+              </div>
+              <div class="col-lg-8">
+                <%= address.select :city_id, @cities ? @cities : [], { label: 'Cidade', prompt: "Selecione a cidade:", wrapper: { class: 'has-warning' } }, { id: "city", class: "city_search " } %>
+              </div>
+            </div>
+          <% end %>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="block block-rounded block-themed shadow-sm">
+    <div class="block-header bg-white border-bottom">
+      <h3 class="block-title font-weight-bold text-dark">
+        Termos de uso e Política de privacidade
+      </h3>
+    </div>
+    <div class="block-content">
+      <div class="row">
+        <div class="col">
+          <div class="row">
+            <div class="col-12">
+              <%= f.rich_text_area :terms_of_use %>
+            </div>
+            <div class="col-12">
+              <%= f.rich_text_area :privacy_policy %>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="block block-rounded block-themed shadow-sm">
+    <div class="block-header bg-white border-bottom">
+      <h3 class="block-title font-weight-bold text-dark">
+        Dados do Usuário
+      </h3>
+    </div>
+    <div class="block-content">
+      <div class="row">
+        <div class="col">
+          <%= f.fields_for :user do |user| %>
+            <% user.object.build_profile unless user.object.profile.present? %>
+            <%= user.fields_for :profile do |profile| %>
+              <div class="row">
+                <div class="col-6">
+                  <%= profile.text_field :name %>
+                </div>
+              </div>
+            <% end %>
+            <div class="row">
+              <div class="col-6">
+                <%= user.text_field :email %>
+              </div>
+              <div class="col-6">
+                <%= user.password_field :password unless f.object.persisted? %>
+              </div>
+            </div>
+          <% end %>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="block block-rounded block-themed shadow-sm" data-controller="client">
+    <div class="block-header bg-white border-bottom">
+      <h3 class="block-title font-weight-bold text-dark">
+        Gateways Ativos?
+      </h3>
+    </div>
+    <div class="block-content">
+      <div class="row">
+        <div class="col-6">
+          <div class="mb-3">
+            <%= f.label :has_abmex, 'Gateway Abmex', class: 'fw-bold mb-2' %>
+            <%= f.check_box :has_abmex, label: 'Sim', switch: true, help: 'text' %>
+          </div>
+        </div>
+        <div class="col-6">
+          <div class="mb-3">
+            <%= f.label :has_pagar_me, 'Gateway Pagar Me', class: 'fw-bold mb-2' %>
+            <%= f.check_box :has_pagar_me, label: 'Sim', switch: true, help: 'text' %>
+          </div>
+        </div>
+      </div>
+      
+
+        <div class="col-6">
+          <div class="mb-3">
+            <%= f.label :has_armpay, 'Gateway Armpay', class: 'fw-bold mb-2'  %>
+            <%= f.check_box :has_armpay, label: 'Sim', switch: true, help: 'text' %>
+          </div>
+        </div>         
+      </div>
+
+      <div class="row">
+        <div class="col-6">
+          <div class="mb-3">
+            <%= f.label :has_kitercash, 'Gateway Kitercash', class: 'fw-bold mb-2'  %>
+            <%= f.check_box :has_kitercash, label: 'Sim', switch: true, help: 'text' %>
+          </div>
+        </div>
+        <div class="col-6">
+          <div class="mb-3">
+            <%= f.label :has_almighty_pay, 'Gateway Almighty Pay', class: 'fw-bold mb-2'  %>
+            <%= f.check_box :has_almighty_pay, label: 'Sim', switch: true, help: 'text' %>
+          </div>
+        </div>
+      </div>
+    
+      <div class="row">
+        <div class="col-6">
+          <div class="mb-3">
+            <%= f.label :has_paysak, 'Gateway Pay Sak', class: 'fw-bold mb-2'  %>
+            <%= f.check_box :has_paysak, label: 'Sim', switch: true, help: 'text' %>
+          </div>
+        </div>
+
+        <div class="col-6">
+          <div class="mb-3">
+            <%= f.label :has_paguex, 'Gateway Paguex', class: 'fw-bold mb-2'  %>
+            <%= f.check_box :has_paguex, label: 'Sim', switch: true, help: 'text' %>
+            </div>
+        </div>
+      </div>
+ 
+      <div class="row">
+        <div class="col-6">
+          <%= f.label :has_elysiumpay, 'Gateway Elysiumpay', class: 'fw-bold mb-2'  %>
+          <%= f.check_box :has_elysiumpay, label: 'Sim', switch: true, help: 'text' %>
+        </div>
+        <div class="col-6">
+          <div class="mb-3">
+           <%= f.label :has_pigpay, 'Gateway Pigpay', class: 'fw-bold mb-2' %>
+           <%= f.check_box :has_pigpay, label: 'Sim', switch: true, help: 'text' %>
+          </div>
+        </div>
+      </div>      
+      
+      <div class="row">
+        <div class="col-6">
+          <%= f.label :has_pay2flow, 'Gateway Pay2flow', class: 'fw-bold mb-2'  %>
+          <%= f.check_box :has_pay2flow, label: 'Sim', switch: true, help: 'text' %>
+        </div>
+        <div class="col-6">
+          <div class="mb-3">
+           <%= f.label :has_monezopay, 'Gateway Monezopay', class: 'fw-bold mb-2' %>
+           <%= f.check_box :has_monezopay, label: 'Sim', switch: true, help: 'text' %>
+          </div>
+        </div>
+      </div>        
+
+      <div class="row">
+        <div class="col-6">
+          <%= f.label :has_mp_pagamentos, 'Gateway MpPagamentos', class: 'fw-bold mb-2'  %>
+            <%= f.check_box :has_mp_pagamentos, label: 'Sim', switch: true, help: 'text' %>
+        </div>
+      </div>
+
+<div class="row">
+        <div class="col-6">
+          <%= f.label :has_vegapay, 'Gateway Vegapay', class: 'fw-bold mb-2' %>
+          <%= f.check_box :has_vegapay, label: 'Sim', switch: true, help: 'text' %>
+        </div>
+      </div>
+
+<div class="row">
+        <div class="col-6">
+          <%= f.label :has_teste, 'Gateway Teste', class: 'fw-bold mb-2' %>
+          <%= f.check_box :has_teste, label: 'Sim', switch: true, help: 'text' %>
+        </div>
+      </div>
+
+<div class="row">
+        <div class="col-6">
+          <%= f.label :has_sfsdfs, 'Gateway Sfsdfs', class: 'fw-bold mb-2' %>
+          <%= f.check_box :has_sfsdfs, label: 'Sim', switch: true, help: 'text' %>
+        </div>
+      </div>
+
+<div class="row">
+        <div class="col-6">
+          <%= f.label :has_gafe, 'Gateway Gafe', class: 'fw-bold mb-2' %>
+          <%= f.check_box :has_gafe, label: 'Sim', switch: true, help: 'text' %>
+        </div>
+      </div>
+
+<div class="row">
+        <div class="col-6">
+          <%= f.label :has_motorola, 'Gateway Motorola', class: 'fw-bold mb-2' %>
+          <%= f.check_box :has_motorola, label: 'Sim', switch: true, help: 'text' %>
+        </div>
+      </div>
+
+<div class="row">
+        <div class="col-6">
+          <%= f.label :has_yopa, 'Gateway Yopa', class: 'fw-bold mb-2' %>
+          <%= f.check_box :has_yopa, label: 'Sim', switch: true, help: 'text' %>
+        </div>
+      </div>
+
+<div class="row">
+        <div class="col-6">
+          <%= f.label :has_obito, 'Gateway Obito', class: 'fw-bold mb-2' %>
+          <%= f.check_box :has_obito, label: 'Sim', switch: true, help: 'text' %>
+        </div>
+      </div>
+
+<div class="row">
+        <div class="col-6">
+          <%= f.label :has_vergonex, 'Gateway Vergonex', class: 'fw-bold mb-2' %>
+          <%= f.check_box :has_vergonex, label: 'Sim', switch: true, help: 'text' %>
+        </div>
+      </div>
+
+<div class="row">
+        <div class="col-6">
+          <%= f.label :has_conguz, 'Gateway Conguz', class: 'fw-bold mb-2' %>
+          <%= f.check_box :has_conguz, label: 'Sim', switch: true, help: 'text' %>
+        </div>
+      </div>
+
+<div class="row">
+        <div class="col-6">
+          <%= f.label :has_mojee, 'Gateway Mojee', class: 'fw-bold mb-2' %>
+          <%= f.check_box :has_mojee, label: 'Sim', switch: true, help: 'text' %>
+        </div>
+      </div>
+
+<div class="row">
+        <div class="col-6">
+          <%= f.label :has_hydrahub, 'Gateway Hydrahub', class: 'fw-bold mb-2' %>
+          <%= f.check_box :has_hydrahub, label: 'Sim', switch: true, help: 'text' %>
+        </div>
+      </div>
+
+<div class="row">
+        <div class="col-6">
+          <%= f.label :has_comercialltt, 'Gateway Comercialltt', class: 'fw-bold mb-2' %>
+          <%= f.check_box :has_comercialltt, label: 'Sim', switch: true, help: 'text' %>
+        </div>
+      </div>
+
+<div class="row">
+        <div class="col-6">
+          <%= f.label :has_moscouv, 'Gateway Moscouv', class: 'fw-bold mb-2' %>
+          <%= f.check_box :has_moscouv, label: 'Sim', switch: true, help: 'text' %>
+        </div>
+      </div>
+
+<div class="row">
+        <div class="col-6">
+          <%= f.label :has_cacapava, 'Gateway Cacapava', class: 'fw-bold mb-2' %>
+          <%= f.check_box :has_cacapava, label: 'Sim', switch: true, help: 'text' %>
+        </div>
+      </div>
+
+<div class="row">
+        <div class="col-6">
+          <%= f.label :has_jacaei, 'Gateway Jacaei', class: 'fw-bold mb-2' %>
+          <%= f.check_box :has_jacaei, label: 'Sim', switch: true, help: 'text' %>
+        </div>
+      </div>
+  </div>
+</div>
+
+<div class="block block-rounded block-themed shadow-sm">
+    <div class="block-header bg-white border-bottom">
+      <h3 class="block-title font-weight-bold text-dark">
+        Tipos de Cadastro de Loja
+      </h3>
+    </div>
+<div class="block-content">
+      <div class="row">
+        <div class="col-6">
+          <div class="mb-3">
+            <%= f.label :has_complete_store, 'Loja Completa', class: 'fw-bold mb-2' %>
+            <%= f.check_box :has_complete_store, label: 'Sim', switch: true, help: 'text' %>
+            <%= tag.div class: "text-danger" do %>
+              <%= @client.errors[:has_complete_store].last %>
+            <% end if @client.errors.attribute_names.include?(:has_complete_store) %>
+          </div>
+        </div>
+        <div class="col-6">
+          <div class="mb-3">
+            <%= f.label :has_shopify_store, 'Integração com Shopify', class: 'fw-bold mb-2' %>
+            <%= f.check_box :has_shopify_store, label: 'Sim', switch: true, help: 'text' %>
+            <%= tag.div class: "text-danger" do %>
+              <%= @client.errors[:has_shopify_store].last %>
+            <% end if @client.errors.attribute_names.include?(:has_shopify_store) %>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="block block-rounded block-themed shadow-sm">
+    <div class="block-header bg-white border-bottom">
+      <h3 class="block-title font-weight-bold text-dark">
+        Dados do Aplicativo
+      </h3>
+    </div>
+    <div class="block-content">
+      <div class="row">
+        <div class="col-6">
+          <%= f.file_field :logo_app, help: "O ícone do app precisa ser um PNG ou JPEG de até 1 MB e 512 × 512px" %>
+        </div>
+        <div class='col-6'>
+          <%= f.text_field :proxy_url, required: false, label: "Proxy URL" %>
+        </div>
+        <div class="col-6">
+          <%= f.file_field :banner_app, help: "O recurso gráfico precisa ser uma imagem PNG ou JPEG de até 15 MB e 1024px × 500px" %>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-12">
+          <%= f.text_field :short_description_app %>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-12">
+          <%= f.text_area :description_app %>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="block block-rounded block-themed shadow-sm">
+    <div class="block-header bg-white border-bottom">
+      <h3 class="block-title font-weight-bold text-dark">
+        Google Tag Manager
+      </h3>
+    </div>
+    <div class="block-content">
+      <div class="col-6">
+        <div class="mb-3">
+          <%= f.label :gtm_tracking, class: 'fw-bold mb-2' %>
+          <%= f.check_box :gtm_tracking, label: 'Sim', switch: true, help: 'text', class: "markGtmCode" %>
+        </div>
+      </div>
+      <div class="row <%= f.object.gtm_tracking ? "" : "d-none" %> markGtmCodeTextArea">
+        <div class="col-12">
+          <%= f.text_area :gtm_code, class: '' %>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="block block-rounded block-themed shadow-sm">
+    <div class="block-header bg-white border-bottom">
+      <h3 class="block-title font-weight-bold text-dark">
+        Pixel Facebook
+      </h3>
+    </div>
+    <div class="block-content">
+      <div class="col-6">
+        <div class="mb-3">
+          <%= f.label :track_pixels, 'Marcar Pixel?', class: 'fw-bold mb-2' %>
+          <%= f.check_box :track_pixels, label: 'Sim', switch: true, help: 'text', class: "markPixelCode" %>
+        </div>
+      </div>
+      <div class="row <%= f.object.track_pixels ? "" : "d-none" %> markPixelCodeTextArea">
+        <div class="col-12">
+          <%= f.text_area :pixel_code, class: '' %>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="text-end">
+    <%= f.submit nil, class: 'btn btn-primary ', data: {disable_with: 'Salvando...'} %>
+    <%= link_to t('.cancel', default: t("helpers.links.cancel")), admin_clients_path, class: 'btn btn-secondary border ' %>
+  </div>
+<% end %>
